@@ -1,0 +1,50 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.6
+  - name: centos-7.1
+
+suites:
+  - name: centos_pgsql93
+    run_list:
+      - recipe[as-postgresql::server]
+    attributes:
+      pgsql:
+        version: '9.3'
+        conf:
+          log_filename: 'postgresql01-%a.log'
+        hba:
+          - type: 'local'
+            database: 'all'
+            user: 'all'
+            address: ''
+            method: 'peer'
+          - type: 'host'
+            database: 'all'
+            user: 'all'
+            address: '0.0.0.0/0'
+            method: 'trust'
+  - name: centos_pgsql94
+    run_list:
+      - recipe[as-postgresql::server]
+    attributes:
+      pgsql:
+        version: '9.4'
+        conf:
+          log_filename: 'postgresql01-%a.log'
+        hba:
+          - type: 'local'
+            database: 'all'
+            user: 'all'
+            address: ''
+            method: 'peer'
+          - type: 'host'
+            database: 'all'
+            user: 'all'
+            address: '0.0.0.0/0'
+            method: 'trust'
